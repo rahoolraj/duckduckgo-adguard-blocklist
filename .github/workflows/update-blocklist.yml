@@ -1,0 +1,56 @@
+name: Update DuckDuckGo Blocklist
+
+on:
+  # Run daily at midnight UTC
+  schedule:
+    - cron: '0 0 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run on push to main (for testing)
+  push:
+    branches:
+      - main
+    paths:
+      - 'convert.py'
+      - '.github/workflows/update-blocklist.yml'
+
+jobs:
+  update-blocklist:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Run conversion script
+        run: python3 convert.py
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --exit-code adguard-blocklist.txt version.txt || echo "changed=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add adguard-blocklist.txt version.txt
+          git commit -m "Update blocklist to version $(cat version.txt)"
+          git push
+      
+      - name: No changes detected
+        if: steps.check_changes.outputs.changed != 'true'
+        run: echo "No changes to the blocklist"
