@@ -8,6 +8,7 @@ and converts it to AdGuard blocklist format.
 
 import json
 import urllib.request
+import urllib.error
 import sys
 from datetime import datetime, timezone
 
@@ -20,8 +21,14 @@ def fetch_blocklist(url):
         with urllib.request.urlopen(url) as response:
             data = response.read().decode('utf-8')
             return json.loads(data)
-    except Exception as e:
-        print(f"Error fetching blocklist: {e}", file=sys.stderr)
+    except urllib.error.HTTPError as e:
+        print(f"HTTP Error fetching blocklist: {e.code} {e.reason}", file=sys.stderr)
+        sys.exit(1)
+    except urllib.error.URLError as e:
+        print(f"URL Error fetching blocklist: {e.reason}", file=sys.stderr)
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON: {e}", file=sys.stderr)
         sys.exit(1)
 
 def convert_to_adguard(data):
