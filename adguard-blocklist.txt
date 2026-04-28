@@ -3,7 +3,7 @@
 ! Homepage: https://github.com/rahoolraj/duckduckgo-adguard-blocklist
 ! Source: https://github.com/duckduckgo/tracker-blocklists
 ! Version: 1688648647512
-! Last modified: 2026-04-27 03:35:05 UTC
+! Last modified: 2026-04-28 03:39:42 UTC
 ! Expires: 1 day
 !
 ! This list is automatically generated from DuckDuckGo's tracker blocklist.
@@ -83,7 +83,6 @@
 ||cloud.unity3d.com^
 ||cm.everesttech.net^
 ||collect.igodigital.com^
-||combine.urbanairship.com^
 ||configure.rayjump.com^
 ||connect.facebook.net^
 ||connect.tapjoy.com^
@@ -101,7 +100,6 @@
 ||d9.flashtalking.com^
 ||data.flurry.com^
 ||de.tynt.com^
-||device-api.urbanairship.com^
 ||device.marketingcloudapis.com^
 ||di.rlcdn.com^
 ||dis.criteo.com^
