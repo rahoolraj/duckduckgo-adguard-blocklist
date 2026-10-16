@@ -3,7 +3,7 @@
 ! Homepage: https://github.com/rahoolraj/duckduckgo-adguard-blocklist
 ! Source: https://github.com/duckduckgo/tracker-blocklists
 ! Version: 1688648647512
-! Last modified: 2026-10-15 03:59:08 UTC
+! Last modified: 2026-10-16 03:56:09 UTC
 ! Expires: 1 day
 !
 ! This list is automatically generated from DuckDuckGo's tracker blocklist.
